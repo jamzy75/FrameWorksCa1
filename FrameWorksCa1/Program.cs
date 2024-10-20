@@ -54,10 +54,22 @@ namespace FrameWorksCa1
 
         private static void ViewUpcomingEvents()
         {
-            throw new NotImplementedException();
+            List<RaceEvent> events = raceCourseManager.ViewEvents();
+
+            if (events.Count > 0)
+            {
+                foreach (RaceEvent raceEvent in events)
+                {
+                    Console.WriteLine(raceEvent.ToString());
+                }
+            }
+            else
+            {
+                Console.WriteLine("No upcoming events.");
+            }
         }
 
-        private static void EnterHorseInRace()
+            private static void EnterHorseInRace()
         {
             throw new NotImplementedException();
         }
