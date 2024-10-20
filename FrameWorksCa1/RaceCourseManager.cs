@@ -26,6 +26,10 @@ namespace FrameWorksCA1
             race.AddHorse(horse);
         }
 
+        public List<RaceEvent> ViewEvents()
+        {
+            return Events;
+        }
 
 
     }
