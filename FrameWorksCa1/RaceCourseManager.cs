@@ -31,6 +31,17 @@ namespace FrameWorksCA1
             return Events;
         }
 
+        public RaceEvent ViewEventDetails(string eventName)
+        {
+            foreach (var raceEvent in Events)
+            {
+                if (raceEvent.EventName == eventName) // 
+                {
+                    return raceEvent;
+                }
+            }
+            return null; // Return null if no event is found
+        }
 
     }
 }
