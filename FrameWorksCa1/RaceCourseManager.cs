@@ -16,8 +16,16 @@ namespace FrameWorksCA1
             Events.Add(raceEvent);
         }
 
-       
-       
+        public void AddRaceToEvent(RaceEvent raceEvent, Race race)
+        {
+            raceEvent.Races.Add(race);
+        }
+
+        public void AddHorseToRace(Race race, Horse horse)
+        {
+            race.AddHorse(horse);
+        }
+
 
 
     }
