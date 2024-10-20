@@ -144,8 +144,62 @@ namespace FrameWorksCa1
 
         private static void UploadHorsesToRace()
         {
-            throw new NotImplementedException();
+            Console.Write("Enter event name: ");
+            string eventName = Console.ReadLine();
+            RaceEvent raceEvent = raceCourseManager.ViewEventDetails(eventName);
+
+            if (raceEvent != null)
+            {
+                Console.Write("Enter race name: ");
+                string raceName = Console.ReadLine();
+                Race race = null;
+
+                foreach (Race r in raceEvent.Races)
+                {
+                    if (r.RaceName == raceName)
+                    {
+                        race = r;
+                        break;
+                    }
+                }
+
+                if (race != null)
+                {
+                    Console.WriteLine("Enter horses (leave name blank to stop uploading horses):");
+
+                    while (true)
+                    {
+                        Console.Write("Horse Name: ");
+                        string horseName = Console.ReadLine();
+                        if (string.IsNullOrEmpty(horseName)) break;
+
+                        Console.Write("Horse ID: ");
+                        string horseID = Console.ReadLine();
+                        Console.Write("Date of Birth (format: yyyy-MM-dd): ");
+                        DateTime dob = DateTime.Parse(Console.ReadLine());
+
+                        Horse horse = new Horse(horseID, horseName, dob);
+                        race.AddHorse(horse);
+                        Console.WriteLine("Horse added to race.");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("Race not found.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Event not found.");
+            }
         }
+
+
+
+
+
+
+
 
         private static void AddRaceToEvent()
         {
