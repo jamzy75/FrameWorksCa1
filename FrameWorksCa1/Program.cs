@@ -69,10 +69,78 @@ namespace FrameWorksCa1
             }
         }
 
+
+
+
             private static void EnterHorseInRace()
         {
-            throw new NotImplementedException();
+            Console.Write("Enter owner name: ");
+            string ownerName = Console.ReadLine();
+            HorseOwner owner = null;
+
+            foreach (HorseOwner ho in horseOwners)
+            {
+                if (ho.OwnerName == ownerName)
+                {
+                    owner = ho;
+                    break;
+                }
+            }
+
+            if (owner == null)
+            {
+                Console.WriteLine("Owner is not found,you are about to create new owner profile.");
+                owner = new HorseOwner(ownerName);
+                horseOwners.Add(owner);
+            }
+
+            Console.Write("Enter event name: ");
+            string eventName = Console.ReadLine();
+            RaceEvent raceEvent = raceCourseManager.ViewEventDetails(eventName);
+
+            if (raceEvent != null)
+            {
+                Console.Write("Enter race name: ");
+                string raceName = Console.ReadLine();
+                Race race = null;
+
+                foreach (Race r in raceEvent.Races)
+                {
+                    if (r.RaceName == raceName)
+                    {
+                        race = r;
+                        break;
+                    }
+                }
+
+                if (race != null)
+                {
+                    Console.Write("Horse Name: ");
+                    string horseName = Console.ReadLine();
+                    Console.Write("Horse ID: ");
+                    string horseID = Console.ReadLine();
+                    Console.Write("Date of Birth (format: yyyy-MM-dd): ");
+                    DateTime dob = DateTime.Parse(Console.ReadLine());
+
+                    Horse horse = new Horse(horseID, horseName, dob);
+                    owner.enterHorseInRace(race, horse);
+                    Console.WriteLine("Horse entered in race.");
+                }
+                else
+                {
+                    Console.WriteLine("Race is not there.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Event is not there.");
+            }
         }
+
+
+
+
+
 
         private static void UploadHorsesToRace()
         {
