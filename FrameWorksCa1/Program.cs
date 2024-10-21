@@ -203,8 +203,32 @@ namespace FrameWorksCa1
 
         private static void AddRaceToEvent()
         {
-            throw new NotImplementedException();
+            Console.Write("Enter event name to add a race to: ");
+            string eventName = Console.ReadLine();
+            RaceEvent raceEvent = raceCourseManager.ViewEventDetails(eventName);
+
+            if (raceEvent != null)
+            {
+                Console.Write("Enter race name (or press Enter to get an auto-generate one): ");
+                string raceName = Console.ReadLine();
+                if (string.IsNullOrEmpty(raceName))
+                {
+                    raceName = $"Race {raceEvent.Races.Count + 1}";
+                }
+
+                Console.Write("Enter race start time (format: yyyy-MM-dd HH:mm): ");
+                DateTime startTime = DateTime.Parse(Console.ReadLine());
+
+                Race race = new Race(raceName, startTime, new List<Horse>());
+                raceEvent.addRace(race);
+                Console.WriteLine("Race added to event successfully!");
+            }
+            else
+            {
+                Console.WriteLine("Event was not found.");
+            }
         }
+
 
         private static void CreateRaceEvent()
         {
