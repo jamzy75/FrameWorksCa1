@@ -152,8 +152,10 @@ namespace FrameWorksCa1
             {
                 Console.Write("Enter race name: ");
                 string raceName = Console.ReadLine();
+
                 Race race = null;
 
+                // Find the race by name
                 foreach (Race r in raceEvent.Races)
                 {
                     if (r.RaceName == raceName)
@@ -170,14 +172,48 @@ namespace FrameWorksCa1
                     while (true)
                     {
                         Console.Write("Horse Name: ");
-                        string horseName = Console.ReadLine();
+                        string horseName = Console.ReadLine().Trim();
                         if (string.IsNullOrEmpty(horseName)) break;
 
                         Console.Write("Horse ID: ");
-                        string horseID = Console.ReadLine();
+                        string horseID = Console.ReadLine().Trim();
+
+                        // Validation: i made this to check if a horse with the same ID already exists in the race
+                        bool horseIdExists = false;
+                        foreach (Horse h in race.horses)
+                        {
+                            if (h.HorseID == horseID)
+                            {
+                                horseIdExists = true;
+                                break;
+                            }
+                        }
+                        if (horseIdExists)
+                        {
+                            Console.WriteLine($"Error: A horse with ID {horseID} already exists in this race.");
+                            continue;
+                        }
+
+                        // Validation: I made this to check if a horse with the same name (case-insensitive) already exists in the race
+                        bool horseNameExists = false;
+                        foreach (Horse h in race.horses)
+                        {
+                            if (string.Equals(h.HorseName.Trim(), horseName, StringComparison.OrdinalIgnoreCase))
+                            {
+                                horseNameExists = true;
+                                break;
+                            }
+                        }
+                        if (horseNameExists)
+                        {
+                            Console.WriteLine($"Error: A horse with name \"{horseName}\" already exists in this race.");
+                            continue;
+                        }
+
                         Console.Write("Date of Birth (format: yyyy-MM-dd): ");
                         DateTime dob = DateTime.Parse(Console.ReadLine());
 
+                        // If the validation passess, add the horse to the race
                         Horse horse = new Horse(horseID, horseName, dob);
                         race.AddHorse(horse);
                         Console.WriteLine("Horse added to race.");
@@ -193,6 +229,7 @@ namespace FrameWorksCa1
                 Console.WriteLine("Event not found.");
             }
         }
+
 
 
 
