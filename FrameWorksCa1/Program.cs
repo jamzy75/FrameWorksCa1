@@ -267,9 +267,17 @@ namespace FrameWorksCa1
         }
 
 
-        private static void CreateRaceEvent()
+        static void CreateRaceEvent()
         {
-            throw new NotImplementedException();
+            Console.Write("Enter event name: ");
+            string eventName = Console.ReadLine();
+            Console.Write("Enter location: ");
+            string location = Console.ReadLine();
+            Console.Write("Enter number of races: ");
+            int numberOfRaces = int.Parse(Console.ReadLine());
+
+            raceCourseManager.CreateEvent(eventName, location, numberOfRaces);
+            Console.WriteLine("Race event created successfully!");
         }
     }
     }
